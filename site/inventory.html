@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Inventory — StockTrace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+  <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand"><span class="brand-mark" aria-hidden="true">&#9670;</span><span class="brand-name">STOCKTRACE</span></div>
+    <nav class="sidebar-nav" aria-label="Primary">
+      <a class="nav-item" href="dashboard.html" data-roles="admin,manager,staff">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-item" href="inventory.html" data-roles="admin,manager,staff">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg>
+        <span>Inventory</span>
+      </a>
+      <a class="nav-item" href="scan-log.html" data-roles="admin,manager,staff">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M8.5 15.5a5 5 0 0 1 0-7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.5 18.5a9 9 0 0 1 0-13"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+        <span>Scan Log</span>
+      </a>
+      <a class="nav-item" href="orders.html" data-roles="admin,manager">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="1.5"/><path d="M9 3.5h6a1 1 0 0 1 1 1V6H8V4.5a1 1 0 0 1 1-1Z"/><path d="M8.5 11h7"/><path d="M8.5 14.5h7"/><path d="M8.5 18h4"/></svg>
+        <span>Orders</span>
+      </a>
+      <a class="nav-item" href="suppliers.html" data-roles="admin,manager">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16V6a1 1 0 0 1 1-1h9v11"/><path d="M13 9h4l4 4v3h-8"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>
+        <span>Suppliers</span>
+      </a>
+      <a class="nav-item" href="reports.html" data-roles="admin,manager">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-7"/></svg>
+        <span>Reports</span>
+      </a>
+      <a class="nav-item" href="admin.html" data-roles="admin">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>Admin</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="role-pill" id="rolePill">
+        <span>Viewing as <span class="role-pill-name">Manager</span></span>
+        <a href="login.html">Switch</a>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-scrim" id="sidebarScrim"></div>
+
+  <main class="main">
+    <header class="topbar">
+      <div><h1 class="page-title" id="pageTitle">Inventory</h1><p class="page-sub" id="pageSub">Every product currently tracked by an RFID tag</p></div>
+      <div class="topbar-actions">
+        
+        <div class="notif-wrap">
+          <button class="notif-btn" id="notifBtn" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="notif-count" id="notifCount">0</span>
+          </button>
+          <div class="notif-dropdown" id="notifDropdown"></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <div class="search-field">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="search" placeholder="Search by name or RFID tag" />
+        </div>
+        <select class="select-field" id="categoryFilter"></select>
+      </div>
+      <button class="btn btn-primary" id="addProductBtn">+ Add product</button>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Product</th><th>RFID tag</th><th>Category</th><th>On hand</th><th>Reorder at</th><th>Status</th><th></th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h3 id="modalTitle">Add product</h3>
+    <form id="productForm">
+      <label>Product name<input type="text" name="name" required /></label>
+      <label>RFID tag ID<input type="text" name="tagId" placeholder="e.g. A3F19C82" required /></label>
+      <label>Category<input type="text" name="category" required /></label>
+      <div class="form-row">
+        <label>Quantity on hand<input type="number" name="qty" min="0" required /></label>
+        <label>Reorder at<input type="number" name="reorder" min="0" required /></label>
+      </div>
+      <div class="form-row">
+        <label>Max stock<input type="number" name="maxStock" min="0" required /></label>
+        <label>Unit price (₹)<input type="number" name="unitPrice" min="0" step="0.01" required /></label>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="modalCancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+
+let editingTagId = null;
+
+async function loadCategories() {
+  const categories = await getCategories();
+  const sel = $('#categoryFilter');
+  const current = sel.value;
+  sel.innerHTML = '<option value="">All categories</option>' + categories.map(c => `<option value="${c}">${c}</option>`).join('');
+  sel.value = current;
+}
+
+async function renderTable() {
+  const products = await getProducts();
+  const q = ($('#search').value || '').trim().toLowerCase();
+  const cat = $('#categoryFilter').value;
+  const filtered = products.filter(p =>
+    (!q || p.name.toLowerCase().includes(q) || p.tagId.toLowerCase().includes(q)) &&
+    (!cat || p.category === cat));
+
+  $('#tbody').innerHTML = filtered.map(p => `
+    <tr>
+      <td class="row-title"><a href="product-detail.html?id=${p.tagId}&role=${getRole()}">${p.name}</a></td>
+      <td class="mono">${p.tagId}</td>
+      <td>${p.category}</td>
+      <td class="mono">${p.qty}</td>
+      <td class="mono">${p.reorder}</td>
+      <td>${statusBadge(p)}</td>
+      <td class="row-actions">
+        <button class="icon-btn" data-edit="${p.tagId}" aria-label="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+        <button class="icon-btn" data-delete="${p.tagId}" aria-label="Delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button>
+      </td>
+    </tr>`).join('') || `<tr><td colspan="7">${emptyState('No products match')}</td></tr>`;
+
+  $$('[data-edit]').forEach(b => b.addEventListener('click', () => openEdit(b.dataset.edit)));
+  $$('[data-delete]').forEach(b => b.addEventListener('click', () => handleDelete(b.dataset.delete)));
+}
+
+async function openEdit(tagId) {
+  const p = await getProduct(tagId);
+  editingTagId = tagId;
+  $('#modalTitle').textContent = 'Edit product';
+  const form = $('#productForm');
+  form.name.value = p.name; form.tagId.value = p.tagId; form.tagId.disabled = true;
+  form.category.value = p.category; form.qty.value = p.qty; form.reorder.value = p.reorder;
+  form.maxStock.value = p.maxStock; form.unitPrice.value = p.unitPrice;
+  openModal('modalOverlay');
+}
+
+async function handleDelete(tagId) {
+  const p = await getProduct(tagId);
+  if (!confirm(`Delete ${p.name}? This can't be undone.`)) return;
+  try {
+    await deleteProduct(tagId);
+    await renderTable();
+    showToast(`Deleted ${p.name}`);
+  } catch (err) { showError(err); }
+}
+
+wireModal('modalOverlay', 'addProductBtn', 'modalCancel');
+$('#addProductBtn').addEventListener('click', () => {
+  editingTagId = null;
+  $('#modalTitle').textContent = 'Add product';
+  const form = $('#productForm');
+  form.reset(); form.tagId.disabled = false;
+});
+
+$('#productForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  const values = { name: data.get('name'), category: data.get('category'), qty: Number(data.get('qty')), reorder: Number(data.get('reorder')), maxStock: Number(data.get('maxStock')), unitPrice: Number(data.get('unitPrice')) };
+  try {
+    if (editingTagId) {
+      await updateProduct(editingTagId, values);
+      showToast(`Updated ${values.name}`);
+    } else {
+      values.tagId = data.get('tagId').toUpperCase();
+      await addProduct(values);
+      showToast(`Added ${values.name}`);
+    }
+    closeModal('modalOverlay');
+    await loadCategories();
+    await renderTable();
+  } catch (err) { showError(err); }
+});
+
+$('#search').addEventListener('input', renderTable);
+$('#categoryFilter').addEventListener('change', renderTable);
+
+(async () => { await loadCategories(); await renderTable(); })();
+
+</script>
+</body>
+</html>

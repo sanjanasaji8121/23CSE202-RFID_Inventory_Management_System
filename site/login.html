@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign in — StockTrace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="login-shell">
+  <div class="login-card">
+    <div class="login-brand"><span class="brand-mark" aria-hidden="true">&#9670;</span><span class="brand-name">STOCKTRACE</span></div>
+    <p class="login-sub">RFID inventory management — sign in to continue</p>
+
+    <form onsubmit="return false;">
+      <label>Email<input type="email" placeholder="you@store.com" /></label>
+      <label>Password<input type="password" placeholder="••••••••" /></label>
+      <button type="button" class="btn btn-primary" style="width:100%" onclick="alert('This prototype skips real authentication — use the role buttons below instead.')">Sign in</button>
+    </form>
+
+    <div class="login-divider">or continue as</div>
+    <div class="role-btn-grid">
+      <a class="role-btn" href="dashboard.html?role=staff">Staff<small>Inventory + scan log only</small></a>
+      <a class="role-btn" href="dashboard.html?role=manager">Manager<small>Full day-to-day operations</small></a>
+      <a class="role-btn" href="dashboard.html?role=admin">Admin<small>Everything, plus users &amp; settings</small></a>
+    </div>
+    <p class="login-note">Demo mode — no real accounts yet. Role switching here stands in for real login once the Java backend handles sessions.</p>
+  </div>
+</div>
+</body>
+</html>

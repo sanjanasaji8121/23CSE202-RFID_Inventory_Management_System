@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Product — StockTrace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+  <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand"><span class="brand-mark" aria-hidden="true">&#9670;</span><span class="brand-name">STOCKTRACE</span></div>
+    <nav class="sidebar-nav" aria-label="Primary">
+      <a class="nav-item" href="dashboard.html" data-roles="admin,manager,staff">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-item" href="inventory.html" data-roles="admin,manager,staff">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg>
+        <span>Inventory</span>
+      </a>
+      <a class="nav-item" href="scan-log.html" data-roles="admin,manager,staff">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M8.5 15.5a5 5 0 0 1 0-7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.5 18.5a9 9 0 0 1 0-13"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+        <span>Scan Log</span>
+      </a>
+      <a class="nav-item" href="orders.html" data-roles="admin,manager">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="1.5"/><path d="M9 3.5h6a1 1 0 0 1 1 1V6H8V4.5a1 1 0 0 1 1-1Z"/><path d="M8.5 11h7"/><path d="M8.5 14.5h7"/><path d="M8.5 18h4"/></svg>
+        <span>Orders</span>
+      </a>
+      <a class="nav-item" href="suppliers.html" data-roles="admin,manager">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16V6a1 1 0 0 1 1-1h9v11"/><path d="M13 9h4l4 4v3h-8"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>
+        <span>Suppliers</span>
+      </a>
+      <a class="nav-item" href="reports.html" data-roles="admin,manager">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-7"/></svg>
+        <span>Reports</span>
+      </a>
+      <a class="nav-item" href="admin.html" data-roles="admin">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>Admin</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="role-pill" id="rolePill">
+        <span>Viewing as <span class="role-pill-name">Manager</span></span>
+        <a href="login.html">Switch</a>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-scrim" id="sidebarScrim"></div>
+
+  <main class="main">
+    <header class="topbar">
+      <div><h1 class="page-title" id="pageTitle">Product</h1><p class="page-sub" id="pageSub"></p></div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost" id="editBtn">Edit</button><button class="btn btn-danger" id="deleteBtn">Delete</button>
+        <div class="notif-wrap">
+          <button class="notif-btn" id="notifBtn" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="notif-count" id="notifCount">0</span>
+          </button>
+          <div class="notif-dropdown" id="notifDropdown"></div>
+        </div>
+      </div>
+    </header>
+
+    <a class="back-link" href="inventory.html">&larr; Back to inventory</a>
+    <div class="detail-grid">
+      <div>
+        <div class="detail-card">
+          <h2>Details</h2>
+          <div id="detailFields"></div>
+        </div>
+        <div class="detail-card">
+          <h2>Printable tag</h2>
+          <p class="view-hint">Generates a label for this RFID tag.</p>
+          <div class="print-tag">
+            <div class="print-tag-name" id="printName"></div>
+            <div class="print-tag-barcode" id="printTag"></div>
+            <div class="print-tag-sub">StockTrace inventory tag</div>
+          </div>
+          <div class="detail-actions"><button class="btn btn-ghost btn-sm" id="printBtn">Print tag</button></div>
+        </div>
+      </div>
+      <div>
+        <div class="detail-card">
+          <h2>Manual stock adjustment</h2>
+          <p class="view-hint">For cycle counts, returns, or damaged stock — anything outside a normal RFID scan.</p>
+          <form class="adjust-form" id="adjustForm">
+            <div class="adjust-row">
+              <label>Quantity change<input type="number" name="delta" placeholder="e.g. -2 or 5" required /></label>
+              <label>Reason
+                <select name="reason" required>
+                  <option value="Cycle count correction">Cycle count correction</option>
+                  <option value="Damaged / write-off">Damaged / write-off</option>
+                  <option value="Returned to supplier">Returned to supplier</option>
+                  <option value="Customer return">Customer return</option>
+                </select>
+              </label>
+            </div>
+            <div><button type="submit" class="btn btn-primary btn-sm">Apply adjustment</button></div>
+          </form>
+        </div>
+        <div class="detail-card">
+          <h2>Scan history</h2>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Action</th><th>Qty</th><th>When</th></tr></thead>
+              <tbody id="scanHistoryBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="editModalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
+    <h3 id="editModalTitle">Edit product</h3>
+    <form id="editForm">
+      <label>Product name<input type="text" name="name" required /></label>
+      <label>Category<input type="text" name="category" required /></label>
+      <div class="form-row">
+        <label>Quantity on hand<input type="number" name="qty" min="0" required /></label>
+        <label>Reorder at<input type="number" name="reorder" min="0" required /></label>
+      </div>
+      <div class="form-row">
+        <label>Max stock<input type="number" name="maxStock" min="0" required /></label>
+        <label>Unit price (₹)<input type="number" name="unitPrice" min="0" step="0.01" required /></label>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="editModalCancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+
+const params = new URLSearchParams(location.search);
+const tagId = params.get('id');
+
+async function load() {
+  const p = await getProduct(tagId);
+  if (!p) { $('.detail-grid').innerHTML = emptyState('Product not found'); return; }
+  $('#pageTitle').textContent = p.name;
+  $('#pageSub').textContent = `RFID tag ${p.tagId} · ${p.category}`;
+  const fillPct = p.maxStock > 0 ? Math.min(100, Math.round((p.qty / p.maxStock) * 100)) : 0;
+  const fillClass = p.qty === 0 ? 'danger' : p.qty <= p.reorder ? 'warning' : '';
+  $('#detailFields').innerHTML = `
+    <div class="stock-bar-wrap">
+      <div class="stock-bar-label"><span>${p.qty} of ${p.maxStock} max</span><span>${fillPct}% full</span></div>
+      <div class="stock-bar-track"><div class="stock-bar-fill ${fillClass}" style="width:${fillPct}%"></div></div>
+    </div>
+    <div class="detail-field"><span>Category</span><span>${p.category}</span></div>
+    <div class="detail-field"><span>On hand</span><span class="mono">${p.qty}</span></div>
+    <div class="detail-field"><span>Reorder at</span><span class="mono">${p.reorder}</span></div>
+    <div class="detail-field"><span>Max stock</span><span class="mono">${p.maxStock}</span></div>
+    <div class="detail-field"><span>Unit price</span><span class="mono">${money(p.unitPrice)}</span></div>
+    <div class="detail-field"><span>Status</span><span>${statusBadge(p)}</span></div>`;
+  $('#printName').textContent = p.name;
+  $('#printTag').textContent = p.tagId;
+
+  const scans = await getScansForProduct(tagId);
+  $('#scanHistoryBody').innerHTML = scans.map(s => `
+    <tr><td>${s.action === 'IN' ? 'Stock in' : 'Stock out'}</td><td class="mono">${s.qty}</td><td class="mono">${timeAgo(s.time)}</td></tr>
+  `).join('') || `<tr><td colspan="3">${emptyState('No scan history yet')}</td></tr>`;
+}
+
+$('#deleteBtn').addEventListener('click', async () => {
+  const p = await getProduct(tagId);
+  if (!confirm(`Delete ${p.name}?`)) return;
+  try {
+    await deleteProduct(tagId);
+    location.href = withRole('inventory.html');
+  } catch (err) { showError(err); }
+});
+
+$('#editBtn').addEventListener('click', async () => {
+  const p = await getProduct(tagId);
+  const form = $('#editForm');
+  form.name.value = p.name; form.category.value = p.category; form.qty.value = p.qty;
+  form.reorder.value = p.reorder; form.maxStock.value = p.maxStock; form.unitPrice.value = p.unitPrice;
+  openModal('editModalOverlay');
+});
+wireModal('editModalOverlay', null, 'editModalCancel');
+$('#editForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  try {
+    await updateProduct(tagId, { name: data.get('name'), category: data.get('category'), qty: Number(data.get('qty')), reorder: Number(data.get('reorder')), maxStock: Number(data.get('maxStock')), unitPrice: Number(data.get('unitPrice')) });
+    closeModal('editModalOverlay');
+    await load();
+    showToast('Product updated');
+  } catch (err) { showError(err); }
+});
+
+$('#adjustForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  const delta = Number(data.get('delta'));
+  const reason = data.get('reason');
+  try {
+    await adjustProductQty(tagId, delta, reason);
+    e.target.reset();
+    await load();
+    showToast(`Stock adjusted by ${delta > 0 ? '+' : ''}${delta}`);
+  } catch (err) { showError(err); }
+});
+
+$('#printBtn').addEventListener('click', () => window.print());
+
+load();
+
+</script>
+</body>
+</html>

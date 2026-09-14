@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Scan Log — StockTrace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+  <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand"><span class="brand-mark" aria-hidden="true">&#9670;</span><span class="brand-name">STOCKTRACE</span></div>
+    <nav class="sidebar-nav" aria-label="Primary">
+      <a class="nav-item" href="dashboard.html" data-roles="admin,manager,staff">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-item" href="inventory.html" data-roles="admin,manager,staff">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg>
+        <span>Inventory</span>
+      </a>
+      <a class="nav-item" href="scan-log.html" data-roles="admin,manager,staff">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M8.5 15.5a5 5 0 0 1 0-7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.5 18.5a9 9 0 0 1 0-13"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+        <span>Scan Log</span>
+      </a>
+      <a class="nav-item" href="orders.html" data-roles="admin,manager">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="1.5"/><path d="M9 3.5h6a1 1 0 0 1 1 1V6H8V4.5a1 1 0 0 1 1-1Z"/><path d="M8.5 11h7"/><path d="M8.5 14.5h7"/><path d="M8.5 18h4"/></svg>
+        <span>Orders</span>
+      </a>
+      <a class="nav-item" href="suppliers.html" data-roles="admin,manager">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16V6a1 1 0 0 1 1-1h9v11"/><path d="M13 9h4l4 4v3h-8"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>
+        <span>Suppliers</span>
+      </a>
+      <a class="nav-item" href="reports.html" data-roles="admin,manager">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-7"/></svg>
+        <span>Reports</span>
+      </a>
+      <a class="nav-item" href="admin.html" data-roles="admin">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>Admin</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="role-pill" id="rolePill">
+        <span>Viewing as <span class="role-pill-name">Manager</span></span>
+        <a href="login.html">Switch</a>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-scrim" id="sidebarScrim"></div>
+
+  <main class="main">
+    <header class="topbar">
+      <div><h1 class="page-title" id="pageTitle">Scan log</h1><p class="page-sub" id="pageSub">Live feed of RFID read events</p></div>
+      <div class="topbar-actions">
+        <div class="reader-status" id="readerStatus">
+          <span class="status-dot" id="readerDot" aria-hidden="true"></span>
+          <span id="readerStatusText">RFID reader not connected</span>
+        </div>
+        <select class="select-field" id="scanMode" title="What a physical scan means right now">
+          <option value="IN">Mode: Stock In</option>
+          <option value="OUT">Mode: Stock Out</option>
+        </select>
+        <button class="btn btn-ghost" id="connectReaderBtn">Connect reader</button>
+        <button class="btn btn-ghost" id="registerTagBtn">+ Register tag</button>
+        <div class="notif-wrap">
+          <button class="notif-btn" id="notifBtn" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="notif-count" id="notifCount">0</span>
+          </button>
+          <div class="notif-dropdown" id="notifDropdown"></div>
+        </div>
+      </div>
+    </header>
+
+    <p class="view-hint">Each card is one product's most recent scan and current stock level — scanning the same tag again updates its card rather than adding a new one. Use "Connect reader" with real hardware, or the no-hardware Arduino simulator sketch. Scanning a tag that isn't in inventory yet will prompt you to add it.</p>
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <select class="select-field" id="actionFilter">
+          <option value="">All activity</option>
+          <option value="IN">Stock in only</option>
+          <option value="OUT">Stock out only</option>
+        </select>
+        <select class="select-field" id="productFilter"></select>
+      </div>
+    </div>
+    <div class="scan-feed" id="scanFeed"></div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="registerModalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="registerModalTitle">
+    <h3 id="registerModalTitle">Register a new tag</h3>
+    <p class="view-hint">Pair a freshly-printed RFID tag with an existing product.</p>
+    <form id="registerForm">
+      <label>RFID tag ID<input type="text" name="tagId" placeholder="Scan or type the new tag ID" required /></label>
+      <label>Assign to product<select name="productTag" id="registerProductSelect" required></select></label>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="registerModalCancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Register tag</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="newProductModalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="newProductModalTitle">
+    <h3 id="newProductModalTitle">Unrecognized tag \u2014 add as new product</h3>
+    <p class="view-hint">This tag isn't linked to any product yet. Fill in the rest and it'll be added to inventory with this tag.</p>
+    <form id="newProductForm">
+      <label>RFID tag ID<input type="text" name="tagId" required /></label>
+      <label>Product name<input type="text" name="name" required autofocus /></label>
+      <label>Category<input type="text" name="category" required /></label>
+      <div class="form-row">
+        <label>Starting quantity<input type="number" name="qty" min="0" value="1" required /></label>
+        <label>Reorder at<input type="number" name="reorder" min="0" value="5" required /></label>
+      </div>
+      <div class="form-row">
+        <label>Max stock<input type="number" name="maxStock" min="0" value="20" required /></label>
+        <label>Unit price (₹)<input type="number" name="unitPrice" min="0" step="0.01" required /></label>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="newProductModalCancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script src="serial.js"></script>
+<script>
+
+async function loadProductFilter() {
+  const products = await getProducts();
+  const sel = $('#productFilter');
+  const current = sel.value;
+  sel.innerHTML = '<option value="">All products</option>' + products.map(p => `<option value="${p.tagId}">${p.name}</option>`).join('');
+  sel.value = current;
+}
+
+async function renderFeed() {
+  const scans = await getScans();
+  const products = await getProducts();
+  const productByTag = Object.fromEntries(products.map(p => [p.tagId, p]));
+
+  const action = $('#actionFilter').value;
+  const productFilter = $('#productFilter').value;
+
+  // One card per product: keep only each tag's most recent scan (scans come
+  // back newest-first already), so re-scanning a tag updates its existing
+  // card's content on the next render instead of the feed growing forever.
+  const latestByTag = new Map();
+  for (const s of scans) {
+    if (!latestByTag.has(s.tagId)) latestByTag.set(s.tagId, s);
+  }
+  let cards = [...latestByTag.values()];
+  if (action) cards = cards.filter(s => s.action === action);
+  if (productFilter) cards = cards.filter(s => s.tagId === productFilter);
+  cards.sort((a, b) => b.time - a.time);
+
+  $('#scanFeed').innerHTML = cards.map((s) => {
+    const product = productByTag[s.tagId];
+    const currentQty = product ? product.qty : s.qty;
+    return `
+    <div class="scan-card ${s.action === 'IN' ? 'in' : 'out'} ${s._new ? 'new' : ''}">
+      <div class="scan-card-top"><span class="scan-tag">${s.tagId}</span><span class="scan-action ${s.action === 'IN' ? 'in' : 'out'}">${s.action === 'IN' ? 'Stock in' : 'Stock out'}</span></div>
+      <div class="scan-card-product">${s.productName}</div>
+      <div class="scan-card-meta"><span>Current stock: ${currentQty}</span><span>${timeAgo(s.time)}</span></div>
+    </div>`;
+  }).join('') || emptyState('No scans match these filters');
+}
+
+wireModal('registerModalOverlay', 'registerTagBtn', 'registerModalCancel');
+$('#registerTagBtn').addEventListener('click', async () => {
+  const products = await getProducts();
+  $('#registerProductSelect').innerHTML = products.map(p => `<option value="${p.tagId}">${p.name} (currently ${p.tagId})</option>`).join('');
+});
+$('#registerForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  try {
+    await reassignTag(data.get('productTag'), data.get('tagId'));
+    e.target.reset();
+    closeModal('registerModalOverlay');
+    await loadProductFilter();
+    showToast('Tag registered');
+  } catch (err) { showError(err); }
+});
+
+/* ---------- Unknown tag \u2192 add as new product ---------- */
+
+wireModal('newProductModalOverlay', null, 'newProductModalCancel');
+$('#newProductForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  const values = {
+    tagId: data.get('tagId').toUpperCase(),
+    name: data.get('name'),
+    category: data.get('category'),
+    qty: Number(data.get('qty')),
+    reorder: Number(data.get('reorder')),
+    maxStock: Number(data.get('maxStock')),
+    unitPrice: Number(data.get('unitPrice')),
+  };
+  try {
+    await addProduct(values);
+    closeModal('newProductModalOverlay');
+    await loadProductFilter();
+    showToast(`Added ${values.name} \u2014 scan it again to log stock movement`);
+  } catch (err) { showError(err); }
+});
+
+$('#actionFilter').addEventListener('change', renderFeed);
+$('#productFilter').addEventListener('change', renderFeed);
+
+/* ---------- Web Serial: live RFID reader ---------- */
+
+const readerDot = $('#readerDot');
+const readerStatusText = $('#readerStatusText');
+const connectReaderBtn = $('#connectReaderBtn');
+let readerConnected = false;
+
+function setReaderUI(connected, reason) {
+  readerConnected = connected;
+  readerDot.classList.toggle('online', connected);
+  connectReaderBtn.textContent = connected ? 'Disconnect reader' : 'Connect reader';
+  if (connected) {
+    readerStatusText.textContent = 'RFID reader connected';
+  } else if (reason === 'unplugged') {
+    readerStatusText.textContent = 'Reader unplugged';
+    showToast('RFID reader was disconnected', 'error');
+  } else if (reason === 'error') {
+    readerStatusText.textContent = 'Reader connection lost';
+    showToast('Lost connection to the RFID reader', 'error');
+  } else {
+    readerStatusText.textContent = 'RFID reader not connected';
+  }
+}
+
+if (!RfidSerial.isSupported()) {
+  connectReaderBtn.disabled = true;
+  connectReaderBtn.title = 'Web Serial API needs Chrome or Edge';
+  readerStatusText.textContent = 'RFID reader unsupported in this browser';
+}
+
+connectReaderBtn.addEventListener('click', async () => {
+  if (readerConnected) {
+    await RfidSerial.disconnect();
+    return;
+  }
+  try {
+    await RfidSerial.connect(handleLiveTag, setReaderUI);
+    showToast('Reader connected \u2014 scan a tag');
+  } catch (err) {
+    showToast(err.message, 'error');
+  }
+});
+
+async function handleLiveTag(tagId) {
+  try {
+    const mode = $('#scanMode').value;
+    const product = await getProduct(tagId);
+
+    if (!product) {
+      showToast(`Tag ${tagId} isn't in inventory yet \u2014 add it below`, 'error');
+      const form = $('#newProductForm');
+      form.reset();
+      form.tagId.value = tagId;
+      openModal('newProductModalOverlay');
+      return;
+    }
+    if (mode === 'OUT' && product.qty < 1) {
+      showToast(`${product.name} is already out of stock`, 'error');
+      return;
+    }
+
+    await adjustProductQty(tagId, mode === 'IN' ? 1 : -1); // no-op against the live backend, see data.js
+    const scan = { tagId, productName: product.name, action: mode, qty: 1, time: Date.now(), _new: true };
+    await recordScan(scan);
+    await renderFeed();
+    await loadProductFilter();
+    showToast(`${mode === 'IN' ? 'Stocked in' : 'Stocked out'} 1 \u00d7 ${product.name} (live scan)`);
+  } catch (err) { showError(err); }
+}
+
+(async () => { await loadProductFilter(); await renderFeed(); })();
+setInterval(renderFeed, 5000);
+
+</script>
+</body>
+</html>

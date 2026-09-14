@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Supplier — StockTrace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+  <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand"><span class="brand-mark" aria-hidden="true">&#9670;</span><span class="brand-name">STOCKTRACE</span></div>
+    <nav class="sidebar-nav" aria-label="Primary">
+      <a class="nav-item" href="dashboard.html" data-roles="admin,manager,staff">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-item" href="inventory.html" data-roles="admin,manager,staff">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg>
+        <span>Inventory</span>
+      </a>
+      <a class="nav-item" href="scan-log.html" data-roles="admin,manager,staff">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M8.5 15.5a5 5 0 0 1 0-7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.5 18.5a9 9 0 0 1 0-13"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+        <span>Scan Log</span>
+      </a>
+      <a class="nav-item" href="orders.html" data-roles="admin,manager">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="1.5"/><path d="M9 3.5h6a1 1 0 0 1 1 1V6H8V4.5a1 1 0 0 1 1-1Z"/><path d="M8.5 11h7"/><path d="M8.5 14.5h7"/><path d="M8.5 18h4"/></svg>
+        <span>Orders</span>
+      </a>
+      <a class="nav-item" href="suppliers.html" data-roles="admin,manager">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16V6a1 1 0 0 1 1-1h9v11"/><path d="M13 9h4l4 4v3h-8"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>
+        <span>Suppliers</span>
+      </a>
+      <a class="nav-item" href="reports.html" data-roles="admin,manager">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-7"/></svg>
+        <span>Reports</span>
+      </a>
+      <a class="nav-item" href="admin.html" data-roles="admin">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>Admin</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="role-pill" id="rolePill">
+        <span>Viewing as <span class="role-pill-name">Manager</span></span>
+        <a href="login.html">Switch</a>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-scrim" id="sidebarScrim"></div>
+
+  <main class="main">
+    <header class="topbar">
+      <div><h1 class="page-title" id="pageTitle">Supplier</h1><p class="page-sub" id="pageSub"></p></div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost" id="editBtn">Edit</button>
+        <div class="notif-wrap">
+          <button class="notif-btn" id="notifBtn" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="notif-count" id="notifCount">0</span>
+          </button>
+          <div class="notif-dropdown" id="notifDropdown"></div>
+        </div>
+      </div>
+    </header>
+
+    <a class="back-link" href="suppliers.html">&larr; Back to suppliers</a>
+    <div class="detail-grid">
+      <div class="detail-card">
+        <h2>Supplier details</h2>
+        <div id="supplierFields"></div>
+      </div>
+      <div class="detail-card">
+        <h2>Order history</h2>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Order</th><th>Items</th><th>Status</th><th>Placed</th></tr></thead>
+            <tbody id="orderHistoryBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="editModalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
+    <h3 id="editModalTitle">Edit supplier</h3>
+    <form id="editForm">
+      <label>Contact email<input type="email" name="contact" required /></label>
+      <label>Category<input type="text" name="category" required /></label>
+      <label>Lead time<input type="text" name="leadTime" required /></label>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="editModalCancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+
+const params = new URLSearchParams(location.search);
+const supplierName = params.get('name');
+
+async function load() {
+  const s = await getSupplier(supplierName);
+  if (!s) { $('.detail-grid').innerHTML = emptyState('Supplier not found'); return; }
+  $('#pageTitle').textContent = s.name;
+  $('#pageSub').textContent = s.category;
+  $('#supplierFields').innerHTML = `
+    <div class="detail-field"><span>Contact</span><span>${s.contact}</span></div>
+    <div class="detail-field"><span>Category</span><span>${s.category}</span></div>
+    <div class="detail-field"><span>Lead time</span><span>${s.leadTime}</span></div>`;
+  const orders = await getOrdersForSupplier(supplierName);
+  $('#orderHistoryBody').innerHTML = orders.map(o => `
+    <tr><td class="mono"><a href="order-detail.html?id=${o.id}&role=${getRole()}">${o.id}</a></td><td>${o.items}</td><td>${orderStatusBadge(o.status)}</td><td class="mono">${o.date}</td></tr>
+  `).join('') || `<tr><td colspan="4">${emptyState('No orders yet with this supplier')}</td></tr>`;
+}
+
+$('#editBtn').addEventListener('click', async () => {
+  const s = await getSupplier(supplierName);
+  const form = $('#editForm');
+  form.contact.value = s.contact; form.category.value = s.category; form.leadTime.value = s.leadTime;
+  openModal('editModalOverlay');
+});
+wireModal('editModalOverlay', null, 'editModalCancel');
+$('#editForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  try {
+    await updateSupplier(supplierName, { contact: data.get('contact'), category: data.get('category'), leadTime: data.get('leadTime') });
+    closeModal('editModalOverlay');
+    await load();
+    showToast('Supplier updated');
+  } catch (err) { showError(err); }
+});
+
+load();
+
+</script>
+</body>
+</html>
